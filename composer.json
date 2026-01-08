@@ -3,6 +3,14 @@
     "description": "A scaffolding package for Magic Link Authentication in Laravel Filament applications.",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "filament",
+        "magic-link",
+        "authentication",
+        "login",
+        "passwordless"
+    ],
     "autoload": {
         "psr-4": {
             "NextMigrant\\MagicLinkLogin\\": "src/"
