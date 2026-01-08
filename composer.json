@@ -1,0 +1,32 @@
+{
+    "name": "nextmigrant/magic-link-login",
+    "description": "A scaffolding package for Magic Link Authentication in Laravel Filament applications.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "NextMigrant\\MagicLinkLogin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "NextMigrant",
+            "email": "dev@nextmigrant.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^10.0|^11.0|^12.0",
+        "livewire/livewire": "^3.0",
+        "filament/filament": "^3.0|^4.0",
+        "laravel/prompts": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NextMigrant\\MagicLinkLogin\\MagicLinkLoginServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
