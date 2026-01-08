@@ -43,7 +43,20 @@ A scaffolding package for Magic Link Authentication in Laravel and Filament appl
     }
     ```
 
-2.  **Explore the Code**:
+2.  **Prevent Password Login for Admins** (Recommended):
+    It is recommended to add this check to your regular login logic (e.g. `Auth.php`) to prevent admins from bypassing the magic link:
+
+    ```php
+    $user = User::where('email', $this->email)->first();
+
+    if ($user && $user->canAccessPanel(Filament::getPanel('admin'))) {
+        $this->redirect(route('admin.login-page'), navigate: true);
+
+        return;
+    }
+    ```
+
+3.  **Explore the Code**:
     After installation, the code belongs to you! You can find the key files here:
     -   `app/Http/Controllers/Admin/AuthController.php`
     -   `app/Livewire/Admin/Auth/Login.php`
