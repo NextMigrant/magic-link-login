@@ -1,6 +1,6 @@
 # Magic Link Login Scaffolding Package
 
-A scaffolding package for Magic Link Authentication in Laravel Filament applications. This package installs the necessary files into your Laravel application and then removes itself, leaving you with full control over the code.
+A scaffolding package for Magic Link Authentication in Laravel and Filament applications. This package installs the necessary files into your Laravel application and then removes itself, leaving you with full control over the code.
 
 ## Installation
 
