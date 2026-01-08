@@ -59,6 +59,51 @@ A scaffolding package for Magic Link Authentication in Laravel Filament applicat
 -   **Rate Limiting**: Built-in security protections.
 -   **Self-Cleaning**: Designed to be installed, exhausted, and removed.
 
+## Email Delivery & Queues
+
+By default, the magic link emails are sent using Laravel's **queue system** to ensure a fast response time for the user.
+
+1.  **Run the Queue Worker**:
+    Ensure you have a queue worker running in your environment (local and production) to process the emails:
+
+    ```bash
+    php artisan queue:work
+    ```
+
+2.  **Customizing Delivery**:
+    If you prefer to send emails synchronously (immediately) or use a specific queue connection, you can modify the `handleLogin` method in the published Livewire component:
+
+    **File**: `app/Livewire/Admin/Auth/Login.php`
+
+    ```php
+    // Default (Queued)
+    Mail::to($user)->queue(new MagicLoginLink($temporaryLoginLink));
+
+    // Synchronous (Immediate)
+    Mail::to($user)->send(new MagicLoginLink($temporaryLoginLink));
+    ```
+
+## Usage without Filament
+
+While this package is designed for Filament, it can be used with any Laravel application.
+
+If you are not using Filament, you simply need to update the **redirect destination** after a successful login.
+
+1.  Open `app/Http/Controllers/Admin/AuthController.php`.
+2.  Locate the `login` method.
+3.  Change the redirect to your desired dashboard route:
+
+    ```php
+    return redirect()->to(
+        // Filament::getPanel('admin')->getUrl() // <--- Remove this
+        route('dashboard') // <--- Add your own route
+    );
+    ```
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+## Credits
+
+-   [NextMigrant](https://nextmigrant.com)

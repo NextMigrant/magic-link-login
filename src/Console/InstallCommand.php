@@ -16,12 +16,7 @@ class InstallCommand extends Command
     {
         \Laravel\Prompts\intro('Magic Link Login Installer');
 
-        \Laravel\Prompts\warning('IMPORTANT: Ensure your application can boot before running this.');
 
-        if (! \Laravel\Prompts\confirm('Do you wish to continue?', default: true)) {
-            \Laravel\Prompts\warning('Installation cancelled.');
-            return;
-        }
 
         \Laravel\Prompts\spin(
             fn () => $this->copyFiles(),
@@ -56,11 +51,19 @@ class InstallCommand extends Command
         \Laravel\Prompts\info('Magic Link Login installed successfully.');
         \Laravel\Prompts\info('NOTE: routes/admin/admin.php has been created/updated. Please check your routes.');
 
+        if (\Laravel\Prompts\confirm('Would you like to run the migrations now?', default: true)) {
+            $this->call('migrate');
+            \Laravel\Prompts\info('Migrations ran successfully.');
+        }
+
         if (file_exists(base_path('packages/magic-link-login'))) {
             if (\Laravel\Prompts\confirm('Do you want to delete the local "packages/magic-link-login" folder?', default: false)) {
                 $this->deleteSourceFolder();
             }
         }
+
+        \Laravel\Prompts\note('IMPORTANT: All necessary files have been copied to your project.');
+        \Laravel\Prompts\note('You no longer need this package as a dependency. You can safely remove it as a package dependency.');
 
         if (\Laravel\Prompts\confirm('Do you want to remove this scaffolding package dependency now?', default: true)) {
             $this->removePackage();
